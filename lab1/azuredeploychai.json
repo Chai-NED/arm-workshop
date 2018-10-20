@@ -17,7 +17,7 @@
                 "Standard_RAGRS"
             ],
             "metadata": {
-                "description": "SKU for storage"
+                "description": "Required SKU for storage"
             }
         }
     },
