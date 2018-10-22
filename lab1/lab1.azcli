@@ -1,0 +1,2 @@
+az group deployment  validate  --resource-group chaimtalab1 --template-file azuredeploychai.json
+
