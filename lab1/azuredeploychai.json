@@ -2,12 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "storageAccount": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of storage account"
-            }
-        },
+      
         "accountType": {
             "type": "string",
             "defaultValue": "Standard_LRS",
@@ -19,17 +14,27 @@
             "metadata": {
                 "description": "Required SKU for storage"
             }
+        },
+        "storageAccountPrefix": {
+            "type": "string",
+            "defaultValue": "chai",
+            "metadata": {
+                "description": "Storage account prefix"
+            }
         }
     },
-    "variables": {},
+    "variables": {
+        "storageAccountName": "[toLower(concat(parameters('storageAccountPrefix'), uniqueString( resourceGroup().id )))]",
+        "Location": "[resourceGroup().location]"
+    },
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[parameters('storageAccount')]",
+            "name": "[variables('storageAccountName')]",
             "apiVersion": "2015-06-15",
-            "location": "[resourceGroup().location]",
+            "location": "[variables('Location')]",
             "tags": {
-                "displayName": "[parameters('storageAccount')]"
+                "displayName": "[variables('storageAccountName')]"
             },
             "properties": {
                 "accountType": "[parameters('accountType')]"
